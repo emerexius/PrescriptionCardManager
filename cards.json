@@ -1,0 +1,790 @@
+[
+  {
+    "id": "character-",
+    "name": "???",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_.png"
+  },
+  {
+    "id": "character-5-11",
+    "name": "5’ 11",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_5’_11.png"
+  },
+  {
+    "id": "character-all-in",
+    "name": "All In",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_All_In.png"
+  },
+  {
+    "id": "character-ant",
+    "name": "Ant",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Ant.png"
+  },
+  {
+    "id": "character-ant-wall",
+    "name": "Ant Wall",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Ant_Wall.png"
+  },
+  {
+    "id": "character-baby",
+    "name": "Baby",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Baby.png"
+  },
+  {
+    "id": "character-badger",
+    "name": "Badger",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Badger.png"
+  },
+  {
+    "id": "character-bnuuy",
+    "name": "Bnuuy",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Bnuuy.png"
+  },
+  {
+    "id": "character-bondo",
+    "name": "Bondo",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Bondo.png"
+  },
+  {
+    "id": "character-brent-howard-98",
+    "name": "Brent Howard 98",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Brent_Howard_98.png"
+  },
+  {
+    "id": "character-buhck-boy",
+    "name": "Buhck Boy",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Buhck_Boy.png"
+  },
+  {
+    "id": "character-caracal",
+    "name": "Caracal",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Caracal.png"
+  },
+  {
+    "id": "character-cat",
+    "name": "Cat",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Cat.png"
+  },
+  {
+    "id": "character-cheeburt",
+    "name": "Cheeburt",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Cheeburt.png"
+  },
+  {
+    "id": "character-chef",
+    "name": "Chef",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Chef.png"
+  },
+  {
+    "id": "character-chicken-gary",
+    "name": "Chicken Gary",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Chicken_Gary.png"
+  },
+  {
+    "id": "character-cool-cool-squirrel",
+    "name": "COOL COOL Squirrel",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_COOL_COOL_Squirrel.png"
+  },
+  {
+    "id": "character-cow",
+    "name": "Cow",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Cow.png"
+  },
+  {
+    "id": "character-crow",
+    "name": "Crow",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Crow.png"
+  },
+  {
+    "id": "character-cube",
+    "name": "Cube",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Cube.png"
+  },
+  {
+    "id": "character-d-ler",
+    "name": "D. Ler",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_D._Ler.png"
+  },
+  {
+    "id": "character-dave-blunts",
+    "name": "Dave Blunts",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Dave_Blunts.png"
+  },
+  {
+    "id": "character-devil",
+    "name": "Devil",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Devil.png"
+  },
+  {
+    "id": "character-dog",
+    "name": "Dog…",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Dog….png"
+  },
+  {
+    "id": "character-douglas-the-duck",
+    "name": "Douglas The Duck",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Douglas_The_Duck.png"
+  },
+  {
+    "id": "character-enraged",
+    "name": "ENRAGED",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_ENRAGED.png"
+  },
+  {
+    "id": "character-fred",
+    "name": "Fred",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Fred.png"
+  },
+  {
+    "id": "character-fuhck-man",
+    "name": "Fuhck Man",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Fuhck_Man.png"
+  },
+  {
+    "id": "character-full-con",
+    "name": "Full Con",
+    "type": "character",
+    "art": "art/Prescription_Card_-_Full_Con.png"
+  },
+  {
+    "id": "character-gangsta",
+    "name": "gangsta",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_gangsta.png"
+  },
+  {
+    "id": "character-gibblybob-jr",
+    "name": "gibblybob Jr.",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_gibblybob_Jr..png"
+  },
+  {
+    "id": "character-glombus",
+    "name": "Glombus",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Glombus.png"
+  },
+  {
+    "id": "character-gonachr",
+    "name": "Gonachr",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Gonachr.png"
+  },
+  {
+    "id": "character-good-person",
+    "name": "Good Person",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Good_Person.png"
+  },
+  {
+    "id": "character-gor",
+    "name": "Gor ",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Gor_.png"
+  },
+  {
+    "id": "character-hemogoblin",
+    "name": "Hemogoblin",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Hemogoblin.png"
+  },
+  {
+    "id": "character-high-cortisol-chud",
+    "name": "High Cortisol Chud",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_High_Cortisol_Chud.png"
+  },
+  {
+    "id": "character-hungolongie",
+    "name": "Hungolongie",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Hungolongie.png"
+  },
+  {
+    "id": "character-lil-jit",
+    "name": "Lil Jit",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Lil_Jit.png"
+  },
+  {
+    "id": "character-lil-shitling",
+    "name": "Lil Shitling",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Lil_Shitling.png"
+  },
+  {
+    "id": "character-man",
+    "name": "Man",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Man.png"
+  },
+  {
+    "id": "character-oliver",
+    "name": "Oliver",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Oliver.png"
+  },
+  {
+    "id": "character-owl",
+    "name": "Owl",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Owl.png"
+  },
+  {
+    "id": "character-raccoon",
+    "name": "Raccoon",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Raccoon.png"
+  },
+  {
+    "id": "character-rat",
+    "name": "Rat",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Rat.png"
+  },
+  {
+    "id": "character-rat-bot",
+    "name": "Rat Bot",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Rat_Bot.png"
+  },
+  {
+    "id": "character-rat-doc",
+    "name": "Rat Doc",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Rat_Doc.png"
+  },
+  {
+    "id": "character-rat-king",
+    "name": "Rat King",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Rat_King.png"
+  },
+  {
+    "id": "character-reaper",
+    "name": "Reaper",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Reaper.png"
+  },
+  {
+    "id": "character-scarab-jones",
+    "name": "Scarab Jones",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Scarab_Jones.png"
+  },
+  {
+    "id": "character-serval",
+    "name": "Serval",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Serval.png"
+  },
+  {
+    "id": "character-sewer-rat",
+    "name": "Sewer Rat",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Sewer_Rat.png"
+  },
+  {
+    "id": "character-snake",
+    "name": "Snake",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Snake.png"
+  },
+  {
+    "id": "character-spider",
+    "name": "Spider",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Spider.png"
+  },
+  {
+    "id": "character-spud",
+    "name": "Spud",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Spud.png"
+  },
+  {
+    "id": "character-stoner",
+    "name": "Stoner",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Stoner.png"
+  },
+  {
+    "id": "character-stones",
+    "name": "Stones",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Stones.png"
+  },
+  {
+    "id": "character-the-green",
+    "name": "The Green",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_The_Green.png"
+  },
+  {
+    "id": "character-the-guy",
+    "name": "The Guy",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_The_Guy.png"
+  },
+  {
+    "id": "character-tiger",
+    "name": "Tiger",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Tiger.png"
+  },
+  {
+    "id": "character-woke-liberal-with-meth",
+    "name": "Woke Liberal With Meth",
+    "type": "character",
+    "tier": 1,
+    "art": "art/Prescription_Card_-_Woke_Liberal_With_Meth.png"
+  },
+  {
+    "id": "character-wolf",
+    "name": "Wolf",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Wolf.png"
+  },
+  {
+    "id": "character-zomboo",
+    "name": "Zomboo ",
+    "type": "character",
+    "tier": 3,
+    "art": "art/Prescription_Card_-_Zomboo_.png"
+  },
+  {
+    "id": "prescription-adderall",
+    "name": "Adderall",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Adderall.png"
+  },
+  {
+    "id": "prescription-antivenom",
+    "name": "Antivenom",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Antivenom.png"
+  },
+  {
+    "id": "prescription-baggie",
+    "name": "Baggie",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Baggie.png"
+  },
+  {
+    "id": "prescription-cigarettes",
+    "name": "Cigarettes",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Cigarettes.png"
+  },
+  {
+    "id": "prescription-cocaine",
+    "name": "Cocaine",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Cocaine.png"
+  },
+  {
+    "id": "prescription-fent",
+    "name": "Fent",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Fent.png"
+  },
+  {
+    "id": "prescription-guangdong-tiger-milk",
+    "name": "Guangdong Tiger Milk",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Guangdong_Tiger_Milk.png"
+  },
+  {
+    "id": "prescription-hospital-flip",
+    "name": "Hospital Flip",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Hospital_Flip.png"
+  },
+  {
+    "id": "prescription-lean",
+    "name": "Lean",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Lean.png"
+  },
+  {
+    "id": "prescription-narcan",
+    "name": "Narcan",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Narcan.png"
+  },
+  {
+    "id": "prescription-reality",
+    "name": "Reality",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Reality.png"
+  },
+  {
+    "id": "prescription-spike",
+    "name": "Spike",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Spike.png"
+  },
+  {
+    "id": "prescription-spikey-girlfriend",
+    "name": "Spikey Girlfriend ",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Spikey_Girlfriend_.png"
+  },
+  {
+    "id": "prescription-stick",
+    "name": "Stick",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Stick.png"
+  },
+  {
+    "id": "prescription-sugar",
+    "name": "Sugar",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Sugar.png"
+  },
+  {
+    "id": "prescription-super-vac",
+    "name": "Super Vac@",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Super_Vac@.png"
+  },
+  {
+    "id": "prescription-syringe",
+    "name": "Syringe",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Syringe.png"
+  },
+  {
+    "id": "prescription-vaccine",
+    "name": "Vaccine",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Vaccine.png"
+  },
+  {
+    "id": "prescription-verminong",
+    "name": "Verminong",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Verminong.png"
+  },
+  {
+    "id": "prescription-vynase",
+    "name": "Vynase",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Vynase.png"
+  },
+  {
+    "id": "prescription-weed",
+    "name": "Weed",
+    "type": "prescription",
+    "art": "art/Prescription_Prescription_Card_-_Weed.png"
+  },
+  {
+    "id": "enchantment-adrenaline",
+    "name": "Adrenaline",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Adrenaline.png"
+  },
+  {
+    "id": "enchantment-bloodlust",
+    "name": "Bloodlust",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Bloodlust.png"
+  },
+  {
+    "id": "enchantment-defender",
+    "name": "Defender",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Defender.png"
+  },
+  {
+    "id": "enchantment-flight",
+    "name": "Flight",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Flight.png"
+  },
+  {
+    "id": "enchantment-gruesome",
+    "name": "Gruesome",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Gruesome.png"
+  },
+  {
+    "id": "enchantment-merciless",
+    "name": "Merciless",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Merciless.png"
+  },
+  {
+    "id": "enchantment-parallel",
+    "name": "Parallel",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Parallel.png"
+  },
+  {
+    "id": "enchantment-reach",
+    "name": "Reach",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Reach.png"
+  },
+  {
+    "id": "enchantment-shield",
+    "name": "Shield",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Shield.png"
+  },
+  {
+    "id": "enchantment-swift",
+    "name": "Swift",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Swift.png"
+  },
+  {
+    "id": "enchantment-terror",
+    "name": "Terror",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Terror.png"
+  },
+  {
+    "id": "enchantment-toxic",
+    "name": "Toxic",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Toxic.png"
+  },
+  {
+    "id": "enchantment-undead",
+    "name": "Undead",
+    "type": "enchantment",
+    "art": "art/Prescription_Card_Enchantment_-_Undead.png"
+  },
+  {
+    "id": "item-barricade",
+    "name": "Barricade",
+    "type": "item",
+    "art": "art/Prescription_Card_Item_-_Barricade.png"
+  },
+  {
+    "id": "item-bear-trap",
+    "name": "Bear Trap",
+    "type": "item",
+    "art": "art/Prescription_Card_Item_-_Bear_Trap.png"
+  },
+  {
+    "id": "item-blood-pump",
+    "name": "Blood Pump",
+    "type": "item",
+    "art": "art/Prescription_Card_Item_-_Blood_Pump.png"
+  },
+  {
+    "id": "item-scientist",
+    "name": "Scientist",
+    "type": "item",
+    "art": "art/Prescription_Card_Item_-_Scientist.png"
+  },
+  {
+    "id": "envision-backtrack",
+    "name": "Backtrack",
+    "type": "envision",
+    "art": "art/v_Backtrack.png"
+  },
+  {
+    "id": "envision-control",
+    "name": "Control",
+    "type": "envision",
+    "art": "art/v_Control.png"
+  },
+  {
+    "id": "envision-decide",
+    "name": "Decide",
+    "type": "envision",
+    "art": "art/v_Decide.png"
+  },
+  {
+    "id": "envision-double",
+    "name": "Double",
+    "type": "envision",
+    "art": "art/v_Double.png"
+  },
+  {
+    "id": "envision-peer",
+    "name": "Peer",
+    "type": "envision",
+    "art": "art/v_Peer.png"
+  },
+  {
+    "id": "envision-persuade",
+    "name": "Persuade",
+    "type": "envision",
+    "art": "art/v_Persuade.png"
+  },
+  {
+    "id": "envision-plague",
+    "name": "Plague",
+    "type": "envision",
+    "art": "art/v_Plague.png"
+  },
+  {
+    "id": "envision-promote",
+    "name": "Promote",
+    "type": "envision",
+    "art": "art/v_Promote.png"
+  },
+  {
+    "id": "envision-reset",
+    "name": "Reset",
+    "type": "envision",
+    "art": "art/v_Reset.png"
+  },
+  {
+    "id": "envision-retaliate",
+    "name": "Retaliate",
+    "type": "envision",
+    "art": "art/v_Retaliate.png"
+  },
+  {
+    "id": "infliction-cleanse",
+    "name": "Cleanse",
+    "type": "infliction",
+    "art": "art/i_Cleanse.png"
+  },
+  {
+    "id": "infliction-clone",
+    "name": "Clone",
+    "type": "infliction",
+    "art": "art/i_Clone.png"
+  },
+  {
+    "id": "infliction-contaminate",
+    "name": "Contaminate",
+    "type": "infliction",
+    "art": "art/i_Contaminate.png"
+  },
+  {
+    "id": "infliction-enfeeble",
+    "name": "Enfeeble",
+    "type": "infliction",
+    "art": "art/i_Enfeeble.png"
+  },
+  {
+    "id": "infliction-hinder",
+    "name": "Hinder",
+    "type": "infliction",
+    "art": "art/i_Hinder.png"
+  },
+  {
+    "id": "infliction-hypnotize",
+    "name": "Hypnotize",
+    "type": "infliction",
+    "art": "art/i_Hypnotize.png"
+  },
+  {
+    "id": "infliction-infest",
+    "name": "Infest",
+    "type": "infliction",
+    "art": "art/i_Infest.png"
+  },
+  {
+    "id": "infliction-learn",
+    "name": "Learn",
+    "type": "infliction",
+    "art": "art/i_Learn.png"
+  },
+  {
+    "id": "infliction-reduce",
+    "name": "Reduce",
+    "type": "infliction",
+    "art": "art/i_Reduce.png"
+  },
+  {
+    "id": "infliction-swap",
+    "name": "Swap",
+    "type": "infliction",
+    "art": "art/i_Swap.png"
+  }
+]
