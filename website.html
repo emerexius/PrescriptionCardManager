@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#131921">
+<title>Prescription Deck Manager</title>
+<style>
+:root{color-scheme:dark;--paper:#131921;--panel:#1c2531;--ink:#dce4ec;--mute:#8d9bab;--line:#2f3b4a;--amber:#d99a45;--red:#e8786f;--teal:#3fa793}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.4 "Segoe UI",system-ui,sans-serif}
+h1{font:700 22px Georgia,serif;margin:0}
+button,select,input{font:inherit;color:inherit}
+button{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--teal)}
+button.go{background:var(--teal);border-color:var(--teal);color:#fff}
+button.danger{color:var(--red)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 20px;border-bottom:2px solid var(--ink);background:var(--panel)}
+header .sp{flex:1}
+nav button{border-radius:0;margin-left:-1px}
+nav button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+select,input[type=text],input[type=number],input[type=search]{background:#fff;border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+main{padding:20px;position:relative;z-index:1}
+.build{display:grid;grid-template-columns:270px 1fr;gap:20px;align-items:start}
+@media(max-width:760px){.build{grid-template-columns:1fr}}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;position:sticky;top:10px}
+@media(max-width:760px){.side{position:static}}
+.side h2{font:700 17px Georgia,serif;margin:0 0 8px}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.dl{list-style:none;margin:8px 0;padding:0;max-height:340px;overflow:auto;border-top:1px solid var(--line)}
+.dl li{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--line)}
+.dl .t{color:var(--mute);font-size:12px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center}
+.chips button.on{background:var(--amber);border-color:var(--amber);color:#fff}
+.gh{grid-column:1/-1;margin:10px 0 0;padding-bottom:4px;border-bottom:1px solid var(--line);font:700 15px Georgia,serif}
+.pk{margin-left:6px;color:var(--teal);font:700 11px "Segoe UI",sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+.c{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.c.in{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber)}
+.c img{display:block;width:100%;height:auto;cursor:zoom-in;background:#d5ddd8;min-height:60px}
+.meta{padding:6px 8px}
+.nm{display:block;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.ct button{padding:2px 10px}
+.ct b{min-width:1.5em;text-align:center}
+.play .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.stat{color:var(--mute)}
+#msg{min-height:1.4em;color:var(--red);margin:4px 0 12px}
+.play h2{font:700 17px Georgia,serif;margin:18px 0 8px}
+.hand{display:flex;flex-wrap:wrap;gap:12px}
+.hand .c{width:150px}
+.hand.small .c{width:100px}
+.hand .meta{display:flex;gap:6px;flex-direction:column}
+.empty{color:var(--mute);font-style:italic}
+button:disabled{opacity:.4;cursor:not-allowed}
+.warn{color:var(--red)}
+.sub{color:var(--mute);margin:12px 0 6px}
+.zone{margin-bottom:28px}
+.st{display:block;color:var(--amber);font-size:12px;min-height:1.2em;letter-spacing:1px}
+.req{list-style:none;margin:8px 0;padding:0;font-size:13px}
+.req li{margin:2px 0}
+.ok{color:var(--teal)}
+.tickers{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px}
+.tk{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:#fff}
+.tk.blood{background:#b3201a}
+.tk.dry{background:#111}
+.tk .l{font-weight:600}
+.tk b{font-size:26px;min-width:1.6em;text-align:center}
+.tk button{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.45);color:#fff;font-size:18px;padding:2px 12px}
+.tk button:hover{background:rgba(255,255,255,.3)}
+.c{position:relative;transition:transform .2s ease,box-shadow .2s ease}
+.im{position:relative;overflow:hidden}
+.im::before,.im::after{content:"";position:absolute;pointer-events:none}
+.im::before{top:0;bottom:0;left:-60%;width:50%;z-index:2;opacity:0;transform:skewX(-20deg);background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent)}
+.im::after{inset:0;z-index:1;opacity:0}
+.c.t3 .im::after{opacity:.3;mix-blend-mode:screen;background:linear-gradient(115deg,transparent 15%,rgba(255,60,170,.8) 32%,rgba(60,220,255,.8) 48%,rgba(150,255,110,.7) 64%,transparent 82%);background-size:260% 260%;animation:holo 5s ease-in-out infinite}
+.c.fx-sheen .im::before{animation:sheen .9s .3s ease-out 1 both}
+.c.fx-pop{animation:pop .45s cubic-bezier(.2,.9,.3,1.2)}
+.c.fx-glow{animation:pop .45s cubic-bezier(.2,.9,.3,1.2),glow 1.5s ease-out}
+.sp{position:absolute;z-index:3;left:var(--x);top:var(--y);width:12px;height:12px;pointer-events:none;opacity:0;background:radial-gradient(#fff,#ffe9a0);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);animation:spark 1.3s var(--d) ease-out 1 both}
+@keyframes pop{0%{transform:scale(.4) translateY(30px);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes sheen{0%{left:-60%;opacity:1}100%{left:120%;opacity:1}}
+@keyframes glow{0%{box-shadow:0 0 0 rgba(255,215,90,0)}30%{box-shadow:0 0 22px 6px rgba(255,215,90,.85)}100%{box-shadow:0 0 0 rgba(255,215,90,0)}}
+@keyframes spark{0%{opacity:0;transform:scale(0) rotate(0)}40%{opacity:1;transform:scale(1.5) rotate(90deg)}100%{opacity:0;transform:scale(0) rotate(180deg)}}
+@keyframes holo{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes wobble{0%{transform:scale(1.06) rotate(0)}25%{transform:scale(1.06) rotate(-2.5deg)}50%{transform:scale(1.06) rotate(2deg)}75%{transform:scale(1.06) rotate(-1deg)}100%{transform:scale(1.06) rotate(0)}}
+.topbar{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.dgrps{display:flex;flex-wrap:wrap;gap:30px}
+.dgrp{display:grid;grid-template-columns:auto auto;gap:8px 12px;align-items:end}
+.dgrp .mini{grid-column:1/-1}
+.deck{position:relative;width:118px;height:164px;border-radius:8px;border:2px solid var(--ink);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;background:repeating-linear-gradient(45deg,#1f5c52 0 10px,#23685c 10px 20px);box-shadow:3px 3px 0 #17423b,6px 6px 0 #0f2e29;transition:transform .15s}
+.deck:hover{transform:translateY(-4px)}
+.deck.none{opacity:.5}
+.deck .dn{font:700 16px Georgia,serif;letter-spacing:.5px}
+.deck b{font-size:32px;line-height:1}
+.deck .dh{font-size:11px;opacity:.85}
+.disc{width:70px;height:98px;border:2px dashed var(--mute);border-radius:8px;background:transparent;color:var(--mute);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;font-size:12px;padding:0}
+.disc b{font-size:20px;color:var(--ink)}
+.disc:hover{border-color:var(--amber);color:var(--amber)}
+.mini{padding:3px 10px;font-size:13px}
+.topbar .tickers{flex-direction:column;margin:0}
+.table{min-height:240px;border:2px solid var(--teal);border-radius:12px;background:rgba(31,92,82,.1);padding:14px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:flex-start;margin-bottom:6px}
+.table .empty{align-self:center}
+.table .c{width:150px;flex:0 0 150px}
+.c.click{cursor:pointer}
+.c.click:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.ov{position:fixed;inset:0;background:rgba(20,28,25,.82);display:none;align-items:center;justify-content:center;z-index:7;padding:20px}
+.ov.on{display:flex}
+#am{z-index:8}
+.box{background:var(--panel);border-radius:10px;padding:16px;max-width:640px;width:100%;max-height:92vh;overflow:auto}
+.box h2{font:700 18px Georgia,serif;margin:0 0 8px}
+#am .box{width:auto;max-width:360px;text-align:center}
+#am .box img{display:block;margin:0 auto 8px;max-width:100%;max-height:55vh;border-radius:6px}
+#am .row{justify-content:center}
+@media (hover:hover){.c:hover{transform:scale(1.06);z-index:5;animation:wobble .6s ease-in-out 1}}
+.slot{position:relative;width:150px;flex:0 0 150px;padding-bottom:calc(var(--n,0) * 28px)}
+#cast{z-index:10;overflow:hidden;cursor:pointer;animation-name:castfade;animation-timing-function:linear;animation-fill-mode:both}
+#cast.env{background:radial-gradient(circle at 50% 50%,rgba(255,150,40,.45),rgba(28,12,2,.94) 72%)}
+#cast.inf{background:radial-gradient(ellipse at 50% 50%,rgba(40,92,40,.5),rgba(4,11,5,.96) 72%)}
+@keyframes castfade{0%{opacity:0}9%{opacity:1}88%{opacity:1}100%{opacity:0}}
+.cc{position:relative;z-index:3;animation:castin .85s cubic-bezier(.2,.9,.3,1.1) both}
+.cc img{display:block;position:relative;z-index:2;height:min(68vh,560px);width:auto;max-width:82vw;border-radius:10px}
+@keyframes castin{0%{transform:scale(.5) translateY(46px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+.cast-label{position:absolute;bottom:18px;left:0;right:0;z-index:4;text-align:center;color:#fff;opacity:.8;font-size:13px;letter-spacing:.6px;text-transform:uppercase}
+.cp{position:absolute;left:var(--x);bottom:-14px;width:var(--s);height:var(--s);border-radius:50%;opacity:0;--sw:26px;animation:cpr var(--t) linear var(--d) infinite}
+.cp:nth-child(odd){--sw:-30px}
+@keyframes cpr{0%{transform:translate(0,0);opacity:0}15%{opacity:.9}100%{transform:translate(var(--sw),-105vh);opacity:0}}
+.env .cp{background:radial-gradient(#fff3c4,#ff9a26);box-shadow:0 0 9px #ffa63a}
+.env .cc{animation:castin .85s cubic-bezier(.2,.9,.3,1.1) both,floaty 3s ease-in-out .85s infinite}
+.env .cc img{animation:envglow 1.5s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes envglow{0%,100%{box-shadow:0 0 26px 6px rgba(255,140,30,.7),0 0 70px 14px rgba(255,120,20,.35)}50%{box-shadow:0 0 52px 16px rgba(255,190,80,.95),0 0 110px 30px rgba(255,140,30,.5)}}
+.rune{position:absolute;inset:0;margin:auto;width:min(96vmin,820px);height:min(96vmin,820px);z-index:1;opacity:0;filter:drop-shadow(0 0 6px rgba(255,160,40,.95));animation:runein 1.1s ease-out .1s both}
+.rune *{fill:none;stroke:#ffb040;stroke-width:.8}
+.rune .r1{transform-origin:0 0;animation:spin 16s linear infinite}
+.rune .r2{transform-origin:0 0;animation:spin 11s linear infinite reverse}
+@keyframes runein{0%{opacity:0;transform:scale(.55) rotate(-40deg)}100%{opacity:.85;transform:scale(1) rotate(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.inf .cp{background:radial-gradient(#d3eca4,#4c8a2a);box-shadow:0 0 7px #6ab04c;animation-duration:calc(var(--t) * 1.5)}
+.inf::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 32%,rgba(0,8,0,.92) 100%);animation:creep 2.6s ease-out both}
+@keyframes creep{from{opacity:0}to{opacity:1}}
+.vines{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.vines path{fill:none;stroke:#1d5a24;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:vgrow 2.8s ease-out forwards}
+.vines path:nth-child(even){stroke:#33803a;stroke-width:1}
+.vines path:nth-child(n+5){stroke-width:.7}
+@keyframes vgrow{to{stroke-dashoffset:0}}
+.rot{position:absolute;inset:-16px;z-index:1;background:#12301a;border-radius:20px;filter:url(#erode);opacity:0;animation:rotin 2.6s ease-out .3s both}
+@keyframes rotin{0%{opacity:0;transform:scale(.9)}100%{opacity:.95;transform:scale(1.05)}}
+.mold{position:absolute;inset:0;z-index:3;border-radius:10px;pointer-events:none;opacity:0;mix-blend-mode:multiply;background:radial-gradient(circle at 0 0,rgba(10,44,14,.95),transparent 38%),radial-gradient(circle at 100% 0,rgba(10,44,14,.9),transparent 34%),radial-gradient(circle at 0 100%,rgba(10,44,14,.95),transparent 40%),radial-gradient(circle at 100% 100%,rgba(10,44,14,.9),transparent 36%);animation:moldin 3s ease-out .4s both}
+@keyframes moldin{0%{opacity:0}100%{opacity:.75}}
+.inf .cc img{animation:rotimg 3s ease-out .4s both}
+@keyframes rotimg{0%{filter:none}100%{filter:saturate(.65) hue-rotate(32deg) brightness(.88)}}
+.slot{transform:scale(var(--ps,1));transition:transform .3s ease}
+.slot:hover{z-index:50}
+.slot.pk-grow{animation:pkgrow .75s cubic-bezier(.2,.9,.3,1.15) 1}
+.slot.pk-shrink{animation:pkshrink .75s ease-in-out 1}
+@keyframes pkgrow{0%{transform:scale(var(--from));filter:none}45%{transform:scale(var(--peak));filter:drop-shadow(0 0 12px rgba(255,196,70,.95))}100%{transform:scale(var(--ps));filter:none}}
+@keyframes pkshrink{0%{transform:scale(var(--from));filter:none}45%{transform:scale(var(--peak));filter:brightness(.8) saturate(.7)}100%{transform:scale(var(--ps,1));filter:none}}
+.slot .c.main,.slot .c.main:hover{z-index:30}
+.slot .c.att{position:absolute;left:calc(var(--k) * 6px + 6px);top:calc((var(--k) + 1) * 28px);width:150px;pointer-events:none;filter:brightness(.82)}
+.badge{position:absolute;top:6px;right:6px;z-index:4;background:var(--amber);color:#fff;border-radius:10px;padding:0 7px;font-size:12px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.pop{display:none;position:absolute;left:50%;top:calc(100% + 4px);transform:translateX(-50%);z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px;min-width:170px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.pop h4{margin:0 0 6px;font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.5px}
+.pi{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:13px}
+.pi img{width:34px;height:auto;border-radius:3px;display:block}
+.pi .t{display:block;color:var(--mute);font-size:11px}
+@media (hover:hover){.slot:hover .pop{display:block}}
+.slot.pick .c.main{outline:3px solid var(--amber);outline-offset:2px;cursor:pointer;animation:pickpulse 1s ease-in-out infinite}
+.pickbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#fff6e0;border:2px solid var(--amber);border-radius:8px;padding:8px 12px;margin:6px 0 10px}
+.attl{margin:8px 0 4px;text-align:left}
+.attl h3{margin:0 0 6px;font:700 13px "Segoe UI",sans-serif;color:var(--mute);text-transform:uppercase;letter-spacing:.5px}
+.attl button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-bottom:4px}
+.attl img{width:30px;height:auto;margin:0;border-radius:3px;max-height:none}
+.c.fx-no{animation:nope .6s ease-in-out 1!important;box-shadow:0 0 0 3px var(--red),0 0 18px 4px rgba(163,52,46,.7)}
+@keyframes nope{0%,100%{transform:rotate(0) translateX(0)}15%{transform:rotate(-7deg) translateX(-6px)}35%{transform:rotate(6deg) translateX(6px)}55%{transform:rotate(-4deg) translateX(-4px)}75%{transform:rotate(3deg) translateX(3px)}}
+@keyframes pickpulse{0%,100%{outline-color:var(--amber)}50%{outline-color:#f3c47a}}
+.decks{display:flex;flex-wrap:wrap;gap:34px;margin:6px 0 18px}
+.dgrp{display:flex;gap:14px;align-items:flex-end}
+.deck{width:110px;aspect-ratio:5/7;padding:0;border-radius:8px;border:2px solid var(--ink);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-shadow:3px 3px 0 var(--ink),6px 6px 0 var(--line);transition:transform .15s;background:repeating-linear-gradient(45deg,var(--teal),var(--teal) 8px,#18483f 8px,#18483f 16px)}
+.deck.other{background:repeating-linear-gradient(45deg,var(--amber),var(--amber) 8px,#8f5614 8px,#8f5614 16px)}
+.deck:hover{transform:translateY(-4px)}
+.deck.empty{opacity:.5}
+.deck b,.deck span{background:rgba(0,0,0,.6);padding:2px 8px;border-radius:4px}
+.deck b{font:700 15px Georgia,serif}
+.deck span{font-size:22px;font-weight:700}
+.dside{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.dside button{font-size:13px;padding:4px 8px}
+.dside .dpile{width:56px;height:76px;padding:0;border-radius:6px;border:2px solid var(--ink);background:var(--panel);box-shadow:2px 2px 0 var(--line),4px 4px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;line-height:1.2;margin-bottom:4px}
+.dpile b{font-size:18px}
+.table{min-height:210px;border:2px dashed var(--line);border-radius:10px;padding:14px;margin-bottom:18px;background:rgba(255,255,255,.35)}
+.c[data-z]{cursor:pointer}
+.c.sel{box-shadow:0 0 0 3px var(--amber)}
+.hand .meta button,.dbox .meta button{padding:3px 6px;font-size:13px}
+#dm{position:fixed;inset:0;background:rgba(20,28,25,.85);display:none;z-index:8;padding:20px;overflow:auto}
+#dm.on{display:block}
+.dbox{background:var(--paper);border-radius:10px;max-width:980px;margin:0 auto;padding:16px}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dh h2{margin:0!important}
+@media (prefers-reduced-motion:reduce){.c,.c *,.im::before,.im::after,.slot,.slot::before,.slot::after,.ap,#cast *{animation:none!important;transition:none!important}.c:hover{transform:none}}
+#lb{position:fixed;inset:0;background:rgba(20,28,25,.88);display:none;align-items:center;justify-content:center;z-index:9;padding:20px}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:100%;border-radius:8px}
+.picker{background:var(--panel);border:2px dashed var(--amber);border-radius:8px;padding:24px;max-width:560px}
+.hide{display:none}
+/* ---- all-pack aura ---- */
+.slot.aura::before{content:"";position:absolute;z-index:0;pointer-events:none;left:-44px;right:-44px;top:-44px;bottom:calc(var(--n,0) * 28px - 44px);border-radius:34px;background:radial-gradient(closest-side,rgba(255,205,90,.75),rgba(255,130,30,.4) 60%,transparent 80%);animation:auraPulse 2s ease-in-out var(--aph,0s) infinite}
+.slot.aura::after{content:"";position:absolute;z-index:0;pointer-events:none;left:-55px;right:-55px;top:-55px;bottom:calc(var(--n,0) * 28px - 55px);border-radius:50%;background:conic-gradient(from 0deg,transparent 0 6%,rgba(255,215,110,.42) 10%,transparent 16% 31%,rgba(255,215,110,.36) 36%,transparent 42% 56%,rgba(255,215,110,.42) 61%,transparent 67% 81%,rgba(255,215,110,.36) 86%,transparent 92%);-webkit-mask-image:radial-gradient(closest-side,transparent 50%,#000 64%,transparent 100%);mask-image:radial-gradient(closest-side,transparent 50%,#000 64%,transparent 100%);animation:auraSpin 8s linear var(--aph,0s) infinite}
+.slot.aura .c.main{box-shadow:0 0 18px 4px rgba(255,205,100,.8)}
+.ap{position:absolute;z-index:35;left:var(--x);bottom:var(--b);width:var(--s);height:var(--s);border-radius:50%;pointer-events:none;background:radial-gradient(#fff6d0,#ffb347);box-shadow:0 0 8px 2px rgba(255,170,60,.85);opacity:0;animation:apr var(--t) linear calc(var(--aph,0s) + var(--d)) infinite}
+@keyframes auraPulse{0%,100%{opacity:.45;transform:scale(.94)}50%{opacity:1;transform:scale(1.07)}}
+@keyframes auraSpin{to{transform:rotate(360deg)}}
+@keyframes apr{0%{transform:translateY(0) scale(.6);opacity:0}20%{opacity:.95}100%{transform:translateY(-130px) scale(1.15);opacity:0}}
+/* ---- dark theme overrides ---- */
+header{border-bottom:2px solid var(--line)}
+nav button.on{background:#2b5f73;color:#fff;border-color:#3b7c95}
+button.go{background:#24776a;border-color:#2f9585;color:#fff}
+button.go:hover{border-color:var(--teal)}
+select,input[type=text],input[type=number],input[type=search]{background:#10161d;color:var(--ink)}
+.chips button.on,.badge{color:#1a1205}
+.c img{background:#27323f}
+.pickbar{background:#33291a;color:var(--ink)}
+.table{background:rgba(255,255,255,.035);border:2px dashed #3a4859}
+.tk.dry{background:#000;border:1px solid #3a4655}
+.tk.blood{background:#a8201b}
+.deck{border-color:#0b1015;box-shadow:3px 3px 0 #0b1015,6px 6px 0 #070a0d}
+.deck.other{border-color:#0b1015}
+.c{box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.c.in{box-shadow:0 0 0 2px var(--amber)}
+.pop{box-shadow:0 8px 22px rgba(0,0,0,.6)}
+.attl button{background:#222d3a;justify-content:flex-start}
+#am .attl img{display:block;margin:0;width:30px;height:auto;max-height:none}
+.deck{background:repeating-linear-gradient(45deg,#24574d 0 8px,#1b4239 8px 16px)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Prescription Deck Manager</h1>
+  <nav><button id="tb" class="on">Build</button><button id="tp">Play</button></nav>
+  <span class="sp"></span>
+  <label>Deck <select id="decksel"></select></label>
+</header>
+<main>
+  <div id="loader" class="picker hide">
+    <h2 style="margin-top:0">Load your cards</h2>
+    <p>The browser can't read <code>cards.json</code> automatically from a file on your computer. Pick it once and it is remembered on this device.</p>
+    <input type="file" id="cardfile" accept=".json">
+  </div>
+
+  <section id="build" class="build">
+    <aside class="side">
+      <h2 id="dname"></h2>
+      <div class="stat" id="dtotal"></div>
+      <ul class="req" id="req"></ul>
+      <ul class="dl" id="dlist"></ul>
+      <div class="row">
+        <button id="new">New deck</button><button id="ren">Rename</button><button id="del" class="danger">Delete</button>
+      </div>
+      <div class="row">
+        <button id="exp">Export deck</button>
+        <button id="imp">Import deck</button>
+        <input type="file" id="impfile" accept=".json" class="hide">
+      </div>
+      <div class="row"><button id="upd">Update cards.json</button></div>
+      <div class="stat" id="csrc" style="font-size:12px"></div>
+    </aside>
+    <div>
+      <div class="tools">
+        <input type="search" id="q" placeholder="Search cards">
+        <span class="chips" id="chips"></span>
+        <span class="chips" id="stars"></span>
+        <button id="clear" class="danger">Empty this deck</button>
+      </div>
+      <div id="bmsg" class="warn" role="status" style="min-height:1.4em;margin-bottom:8px"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="play" class="play hide">
+    <div class="bar" id="pbar">
+      <input type="number" id="n" value="1" min="1" max="15" style="width:70px" aria-label="Cards to draw">
+      <span class="stat">cards per draw</span>
+      <button id="reset" class="danger">New game</button>
+    </div>
+    <div id="msg" role="status"></div>
+    <div id="zones"></div>
+  </section>
+</main>
+<div id="dv" class="ov"><div class="box"></div></div>
+<div id="am" class="ov"><div class="box"></div></div>
+<div id="cast" class="ov" role="dialog" aria-label="Quick effect card"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="erode" x="-25%" y="-25%" width="150%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div id="lb"><img alt=""></div>
+<div id="dm"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const ORDER = ["character","prescription","enchantment","item","envision","infliction","unknown"];
+const MAX_COPIES = 2, MIN_DECK = 15, MAXD = { character: 15, other: 30 };
+const maxDeck = g => MAXD[g];
+const maxCopies = id => (byId[id] && byId[id].tier === 3) ? 1 : MAX_COPIES;
+const GN = { character: "Characters", other: "Other cards" };
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cardCmp = (a,b) => ORDER.indexOf(a.type)-ORDER.indexOf(b.type) || (a.tier||9)-(b.tier||9) || a.name.localeCompare(b.name);
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+let cards = [], byId = {}, decks = store.get("cg-decks") || {}, cur = store.get("cg-cur") || "";
+let filter = "all", query = "", starFilter = 0, play = null;
+if (!Object.keys(decks).length) decks = { "Main deck": {} };
+if (!decks[cur]) cur = Object.keys(decks)[0];
+
+function save(){ store.set("cg-decks", decks); store.set("cg-cur", cur); }
+function shuffle(a){ for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function img(c){ return encodeURI(c.art); }
+
+function setCards(list, remember, src){
+  cards = list.slice().sort(cardCmp);
+  byId = {}; cards.forEach(c => byId[c.id] = c);
+  for (const k of Object.keys(decks)) decks[k] = sanitize(decks[k]);
+  save();
+  if (remember) store.set("cg-cards", list);
+  $("#loader").classList.add("hide");
+  const fm = {site:"Cards loaded from cards.json on this site", cache:"cards.json could not be loaded, so this is a saved copy from an earlier visit", file:"Cards loaded from the file you picked"};
+  $("#csrc").textContent = (fm[src] || "") + ` (${list.length} cards).`;
+  renderAll();
+}
+
+async function loadCards(){
+  try {
+    const r = await fetch("cards.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error("bad status");
+    setCards(await r.json(), true, "site");
+  } catch(e) {
+    const cached = store.get("cg-cards");
+    if (cached) setCards(cached, false, "cache");
+    else { $("#loader").classList.remove("hide"); renderAll(); }
+  }
+}
+
+function readFile(file, cb){
+  const fr = new FileReader();
+  fr.onload = () => { try { cb(JSON.parse(fr.result)); } catch(e){ alert("That file isn't valid JSON."); } };
+  fr.readAsText(file);
+}
+
+/* ---------- deck helpers ---------- */
+const deck = () => decks[cur];
+const gOf = id => (byId[id] && byId[id].type === "character") ? "character" : "other";
+const groupTotal = g => Object.entries(deck()).reduce((a,[id,n]) => a + (gOf(id)===g ? n : 0), 0);
+function sanitize(d){
+  const out = {}, used = { character: 0, other: 0 };
+  for (const [id,n0] of Object.entries(d || {})){
+    const g = gOf(id);
+    const n = Math.min(maxCopies(id), Math.max(0, n0 | 0), maxDeck(g) - used[g]);
+    if (n > 0){ out[id] = n; used[g] += n; }
+  }
+  return out;
+}
+function problems(){
+  const p = [], c = groupTotal("character"), o = groupTotal("other");
+  const one = Object.entries(deck()).reduce((a,[id,n]) => a + ((byId[id] && byId[id].tier === 1) ? n : 0), 0);
+  if (c < MAXD.character) p.push(`Character deck needs ${MAXD.character} cards (has ${c}).`);
+  if (o < MIN_DECK) p.push(`Other cards deck needs at least ${MIN_DECK} cards, up to ${MAXD.other} (has ${o}).`);
+  if (one < 3) p.push(`Needs at least 3 one-blood (1-star) cards (has ${one}).`);
+  return p;
+}
+let bt;
+function flash(t){ $("#bmsg").textContent = t; clearTimeout(bt); bt = setTimeout(() => $("#bmsg").textContent = "", 3500); }
+function bump(id, d){
+  const have = deck()[id] || 0, n = Math.max(0, have + d), g = gOf(id);
+  if (d > 0){
+    if (n > maxCopies(id)) return flash(maxCopies(id) === 1 ? "Only 1 copy of each 3-star card is allowed." : `Only ${MAX_COPIES} copies of a card are allowed.`);
+    if (groupTotal(g) >= maxDeck(g)) return flash(`The ${GN[g].toLowerCase()} deck is full (${maxDeck(g)} cards).`);
+  }
+  if (n) deck()[id] = n; else delete deck()[id];
+  save(); renderBuild();
+}
+
+/* ---------- render: build ---------- */
+function renderDeckSelect(){
+  const s = $("#decksel");
+  s.innerHTML = Object.keys(decks).map(n => `<option ${n===cur?"selected":""}>${esc(n)}</option>`).join("");
+}
+function renderChips(){
+  const types = ["all", ...ORDER.filter(t => cards.some(c => c.type === t))];
+  $("#chips").innerHTML = types.map(t => `<button data-f="${t}" class="${t===filter?"on":""}">${cap(t)}</button>`).join(" ");
+}
+function renderStars(){
+  const o = [[0,"All stars"],[1,"★"],[2,"★★"],[3,"★★★"]];
+  $("#stars").innerHTML = o.map(([v,l]) => `<button data-s="${v}" class="${v===starFilter?"on":""}" aria-label="${v ? v + " star" : "all stars"}">${l}</button>`).join(" ");
+}
+function renderBuild(){
+  $("#dname").textContent = cur;
+  $("#dtotal").textContent = `Characters ${groupTotal("character")}/${MAXD.character} · Other cards ${groupTotal("other")}/${MAXD.other}`;
+  const pr = problems();
+  $("#req").innerHTML = pr.length ? pr.map(t => `<li class="warn">${esc(t)}</li>`).join("") : `<li class="ok">Ready to play.</li>`;
+  const ids = Object.keys(deck()).filter(id => byId[id])
+    .sort((a,b) => cardCmp(byId[a], byId[b]));
+  $("#dlist").innerHTML = ids.length
+    ? ids.map(id => `<li><span>${esc(byId[id].name)} <span class="t">${byId[id].type}${byId[id].tier ? " " + "★".repeat(byId[id].tier) : ""}</span></span><b>×${deck()[id]}</b></li>`).join("")
+    : `<li class="empty">No cards yet. Use + on a card.</li>`;
+  const list = cards.filter(c => (filter==="all" || c.type===filter) && c.name.toLowerCase().includes(query) && (!starFilter || c.tier === starFilter));
+  const gt = { character: groupTotal("character"), other: groupTotal("other") };
+  let prevKey = "";
+  $("#grid").innerHTML = list.map(c => {
+    const key = c.type + (c.tier || ""), head = key === prevKey ? "" : `<h3 class="gh">${c.type === "character" ? "Characters" + (c.tier ? " · " + "★".repeat(c.tier) : "") : cap(c.type) + "s"}</h3>`;
+    prevKey = key;
+    const n = deck()[c.id] || 0;
+    const full = n >= maxCopies(c.id) || gt[gOf(c.id)] >= maxDeck(gOf(c.id));
+    return head + `<div class="c ${n?"in":""} ${c.tier===3?"t3":""}"><div class="im"><img loading="lazy" src="${esc(img(c))}" alt="${esc(c.name)}" data-zoom="${esc(img(c))}"></div>
+      <div class="meta"><span class="st">${"★".repeat(c.tier || 0)}${c.pack ? `<span class="pk">Pack</span>` : ""}</span><span class="nm" title="${esc(c.name)}">${esc(c.name)}</span>
+      <div class="ct"><button data-id="${esc(c.id)}" ${n?"":"disabled"} data-d="-1" aria-label="Remove ${esc(c.name)}">−</button><b>${n}</b><button data-id="${esc(c.id)}" ${full?"disabled":""} data-d="1" aria-label="Add ${esc(c.name)}">+</button></div></div></div>`;
+  }).join("") || `<p class="empty">No cards match.</p>`;
+}
+
+/* ---------- render: play ---------- */
+
+const DN = { character: "Character", other: "Other" };
+let act = null, viewD = null;
+const gl = g => g === "character" ? "Character" : "Other";
+function closeModals(){
+  act = null; viewD = null;
+  $("#am").classList.remove("on"); $("#dv").classList.remove("on");
+}
+function newGame(){
+  if (problems().length){ play = null; renderPlay(); return; }
+  const piles = { character: [], other: [] };
+  for (const [id,n] of Object.entries(deck())) if (byId[id]) for (let i=0;i<n;i++) piles[gOf(id)].push(id);
+  play = { deckName: cur, sig: JSON.stringify(deck()), blood: 0, dry: 0,
+    pile: { character: shuffle(piles.character), other: shuffle(piles.other) },
+    discard: { character: [], other: [] }, hand: [], inplay: [], fresh: null, shake: null, pick: null };
+  $("#msg").textContent = "";
+  cancelCast();
+  closeModals();
+  renderPlay();
+}
+function cardHTML(id, i, zone, g, o = {}){
+  const c = byId[id], t = c.tier || 0;
+  const fresh = zone === "hand" && play.fresh && i >= play.fresh.from;
+  const no = play.shake && play.shake.zone === zone && play.shake.i === i && (zone !== "discard" || play.shake.g === g);
+  const fx = no ? "fx-no" : fresh ? (t === 3 ? "fx-pop fx-sheen fx-glow" : t === 2 ? "fx-pop fx-sheen" : "fx-pop") : "";
+  const sparks = (fresh && t === 3) ? Array.from({length: 9}, () => `<i class="sp" style="--x:${Math.random()*88|0}%;--y:${Math.random()*88|0}%;--d:${(Math.random()*0.9).toFixed(2)}s"></i>`).join("") : "";
+  return `<div class="c click ${o.main ? "main" : ""} ${t === 3 ? "t3" : ""} ${fx}" data-zone="${zone}" data-i="${i}" ${g ? `data-g="${g}"` : ""} tabindex="0" role="button" aria-label="${esc(c.name)}">
+    <div class="im"><img src="${esc(img(c))}" alt="${esc(c.name)}">${sparks}</div>${o.n ? `<span class="badge" title="Attached cards">+${o.n}</span>` : ""}
+    <div class="meta"><span class="nm">${esc(c.name)}</span></div></div>`;
+}
+const MAX_NORMAL = 3, MAX_STAR3 = 1, MAX_ATT = 3;
+const fieldCount = star3 => play.inplay.filter(e => gOf(e.id) === "character" && ((byId[e.id].tier === 3) === star3)).length;
+const packCount = () => play.inplay.filter(e => byId[e.id] && byId[e.id].pack).length;
+const packScale = n => 1 + Math.min(0.2, 0.04 * Math.max(0, n - 1));
+const packBoost = n => Math.min(0.3, 0.05 + 0.02 * n);
+const isQuick = id => !!byId[id] && ["envision","infliction"].includes(byId[id].type);
+const CAST_MS = 4800;
+let castTimer = null;
+function castHTML(c){
+  const env = c.type === "envision";
+  const parts = Array.from({length: env ? 28 : 22}, () => `<i class="cp" style="--x:${Math.random()*100|0}%;--s:${3 + (Math.random()*7|0)}px;--d:${(Math.random()*2.4).toFixed(2)}s;--t:${(2.4 + Math.random()*2.2).toFixed(2)}s"></i>`).join("");
+  let art;
+  if (env){
+    const ticks = Array.from({length: 36}, (_, i) => `<line x1="0" y1="-93" x2="0" y2="${i % 3 ? -89 : -84}" transform="rotate(${i*10})"/>`).join("");
+    art = `<svg class="rune" viewBox="-100 -100 200 200" aria-hidden="true"><g class="r1"><circle r="96"/><circle r="90" stroke-dasharray="3 2"/>${ticks}<polygon points="0,-80 69.3,40 -69.3,40"/><polygon points="0,80 69.3,-40 -69.3,-40"/></g><g class="r2"><circle r="62"/><circle r="56" stroke-dasharray="1 3"/><polygon points="0,-50 43.3,25 -43.3,25"/><polygon points="0,50 43.3,-25 -43.3,-25"/></g></svg>`;
+  } else {
+    const d = ["M0 100 C12 82 6 64 22 52 S34 30 26 12","M100 100 C86 84 94 66 78 54 S66 34 74 14","M0 0 C16 14 10 32 26 40 S38 62 30 82","M100 0 C84 16 90 30 76 42 S64 64 72 84","M0 55 C14 52 20 60 32 56","M100 45 C86 48 80 40 68 44","M45 100 C48 88 40 80 46 70","M55 0 C52 12 60 20 54 30"];
+    art = `<svg class="vines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${d.map((v,i) => `<path d="${v}" pathLength="1" style="animation-delay:${(i*0.18).toFixed(2)}s"/>`).join("")}</svg>`;
+  }
+  const card = `<div class="cc">${env ? "" : '<div class="rot"></div>'}<img src="${esc(img(c))}" alt="${esc(c.name)}">${env ? "" : '<div class="mold"></div>'}</div>`;
+  return `${art}${parts}${card}<div class="cast-label">${cap(c.type)} · click to dismiss</div>`;
+}
+function startCast(id){
+  const c = byId[id], el = $("#cast");
+  play.cast = { id };
+  el.className = "ov " + (c.type === "envision" ? "env" : "inf");
+  el.style.animationDuration = CAST_MS + "ms";
+  el.innerHTML = castHTML(c);
+  void el.offsetWidth;
+  el.classList.add("on");
+  const pl = play;
+  clearTimeout(castTimer);
+  castTimer = setTimeout(() => finishCast(pl), CAST_MS);
+}
+function finishCast(pl = play){
+  clearTimeout(castTimer);
+  $("#cast").classList.remove("on");
+  if (!pl || !pl.cast) return;
+  const id = pl.cast.id;
+  pl.cast = null;
+  pl.discard[gOf(id)].push(id);
+  if (pl === play) renderPlay();
+}
+function cancelCast(){ clearTimeout(castTimer); $("#cast").classList.remove("on"); }
+const allPack = () => { const ch = play.inplay.filter(e => gOf(e.id) === "character"); return ch.length === MAX_NORMAL + MAX_STAR3 && ch.every(e => byId[e.id].pack); };
+const isAttach = id => !!byId[id] && ["prescription","enchantment"].includes(byId[id].type);
+const hasChar = () => play.inplay.some(e => gOf(e.id) === "character");
+function slotHTML(e, i){
+  const isChar = gOf(e.id) === "character";
+  const att = e.att.map((id,k) => {
+    const c = byId[id];
+    return `<div class="c att ${c.tier === 3 ? "t3" : ""}" style="--k:${k};z-index:${Math.max(1, 25 - k)}"><div class="im"><img src="${esc(img(c))}" alt=""></div><div class="meta"><span class="nm">${esc(c.name)}</span></div></div>`;
+  }).join("");
+  const pop = e.att.length ? `<div class="pop"><h4>Attached (${e.att.length})</h4>${e.att.map(id => `<div class="pi"><img src="${esc(img(byId[id]))}" alt=""><span>${esc(byId[id].name)}<span class="t">${cap(byId[id].type)}</span></span></div>`).join("")}</div>` : "";
+  const isPack = isChar && byId[e.id].pack;
+  const aura = isChar && play.aura;
+  const aph = aura ? `;--aph:-${((Date.now() / 1000) % 8).toFixed(2)}s` : "";
+  const dots = aura ? Array.from({length: 7}, (_, k) => `<i class="ap" style="--x:${8 + ((k * 37) % 84)}%;--b:${10 + ((k * 23) % 40)}%;--s:${3 + (k % 3) * 2}px;--t:${k % 2 ? 4 : 2}s;--d:${-(k * 0.57).toFixed(2)}s"></i>`).join("") : "";
+  const fx = (isPack && play.packFx) ? ` pk-${play.packFx.k}` : "";
+  const ps = isPack ? `;--ps:${packScale(packCount())}` : "";
+  const fv = (isPack && play.packFx) ? `;--from:${play.packFx.from};--peak:${play.packFx.peak}` : "";
+  return `<div class="slot${fx}${aura ? " aura" : ""} ${play.pick && isChar && e.att.length < MAX_ATT ? "pick" : ""}" data-si="${i}" ${isChar ? 'data-char="1"' : ""} style="--n:${e.att.length}${ps}${fv}${aph}">${dots}${att}${cardHTML(e.id, i, "inplay", null, { main: true, n: e.att.length })}${pop}</div>`;
+}
+function sendTo(id, k){
+  if (k === "hand") play.hand.push(id);
+  else if (k === "discard") play.discard[gOf(id)].push(id);
+  else if (k === "shuffle"){ const g = gOf(id); play.pile[g].push(id); shuffle(play.pile[g]); }
+}
+let mt;
+function note(t){ $("#msg").textContent = t; clearTimeout(mt); mt = setTimeout(() => { if ($("#msg").textContent === t) $("#msg").textContent = ""; }, 3500); }
+function renderPlay(){
+  const pr = problems();
+  $("#pbar").classList.toggle("hide", pr.length > 0);
+  if (pr.length){
+    closeModals();
+    $("#msg").textContent = "";
+    $("#zones").innerHTML = `<div class="picker"><h2 style="margin-top:0">This deck can't be played yet</h2><ul>${pr.map(t => `<li>${esc(t)}</li>`).join("")}</ul><button id="gb" class="go">Back to deck builder</button></div>`;
+    return;
+  }
+  if (!play){ closeModals(); return; }
+  const pn = packCount(), pp = play.lastPacks || 0;
+  play.packFx = null;
+  if (pn > pp && pn >= 2) play.packFx = { k: "grow", from: packScale(pp), peak: +(packScale(pn) + packBoost(pn)).toFixed(3) };
+  else if (pn < pp && pn >= 1) play.packFx = { k: "shrink", from: packScale(pp), peak: +Math.max(0.8, packScale(pn) - packBoost(pn + 1) * 0.8).toFixed(3) };
+  play.lastPacks = pn;
+  play.aura = allPack();
+  const tk = (k,label) => `<div class="tk ${k}"><span class="l">${label}</span><button data-t="${k}" data-d="-1" aria-label="Decrease ${label}">−</button><b>${play[k] || 0}</b><button data-t="${k}" data-d="1" aria-label="Increase ${label}">+</button></div>`;
+  const grp = g => `<div class="dgrp">
+      <button class="deck ${play.pile[g].length ? "" : "none"}" data-draw="${g}" aria-label="Draw from the ${gl(g).toLowerCase()} deck"><span class="dn">${gl(g)}</span><b>${play.pile[g].length}</b><span class="dh">click to draw</span></button>
+      <button class="disc" data-view="${g}" aria-label="${gl(g)} discard pile"><span>Discard</span><b>${play.discard[g].length}</b></button>
+      <button class="mini" data-shuf="${g}">Shuffle deck</button></div>`;
+  $("#zones").innerHTML = `<div class="topbar"><div class="dgrps">${grp("character")}${grp("other")}</div>
+      <div class="tickers">${tk("blood","Blood")}${tk("dry","Dry Blood")}</div></div>
+    ${play.pick ? `<div class="pickbar"><span>Choose a character in play to attach <b>${esc(byId[(play.pick.zone === "discard" ? play.discard[play.pick.g] : play.hand)[play.pick.i]].name)}</b> to.</span><button data-pickcancel="1">Cancel</button></div>` : ""}
+    <div class="sub">In Play</div>
+    <div class="table">${play.inplay.map((e,i) => slotHTML(e,i)).join("") || `<span class="empty">Cards you play appear here.</span>`}</div>
+    <div class="sub">Hand (${play.hand.length})</div>
+    <div class="hand">${play.hand.map((id,i) => cardHTML(id,i,"hand")).join("") || `<span class="empty">Your hand is empty. Click a deck to draw.</span>`}</div>`;
+  renderDiscard();
+  play.fresh = null;
+  play.shake = null;
+}
+function renderDiscard(){
+  const dv = $("#dv");
+  if (!viewD || !play){ dv.classList.remove("on"); return; }
+  const g = viewD, list = play.discard[g];
+  dv.querySelector(".box").innerHTML = `<h2>${gl(g)} discard pile (${list.length})</h2>
+    <div class="row"><button data-dshuf="${g}" ${list.length ? "" : "disabled"}>Shuffle discard into deck</button><button data-dclose="1">Close</button></div>
+    <div class="hand small">${list.map((id,i) => cardHTML(id,i,"discard",g)).join("") || `<span class="empty">Nothing discarded.</span>`}</div>`;
+  dv.classList.add("on");
+}
+function openAct(){
+  let id, entry = null;
+  if (act.zone === "inplay"){ entry = play.inplay[act.i]; id = entry && entry.id; }
+  else if (act.zone === "att"){ const p = play.inplay[act.p]; id = p && p.att[act.i]; }
+  else id = (act.zone === "discard" ? play.discard[act.g] : play.hand)[act.i];
+  if (!id) return closeAct();
+  const c = byId[id];
+  const quick = isQuick(id);
+  const opts = {
+    hand: [[quick ? "activate" : "play", quick ? "Activate" : "Play"],["discard","Discard"],["shuffle","Shuffle back into deck"]],
+    inplay: [["discard","Discard"],["hand","Back to hand"],["shuffle","Shuffle back into deck"]],
+    att: [["discard","Discard"],["hand","Back to hand"],["shuffle","Shuffle back into deck"]],
+    discard: [["hand","Back to hand"],[quick ? "activate" : "play", quick ? "Activate" : "Play"]]
+  }[act.zone];
+  const attl = (entry && entry.att.length) ? `<div class="attl"><h3>Attached cards (${entry.att.length})</h3>${entry.att.map((a,k) => `<button data-att="${k}"><img src="${esc(img(byId[a]))}" alt=""><span>${esc(byId[a].name)} <span class="stat">${cap(byId[a].type)}</span></span></button>`).join("")}</div>` : "";
+  const note2 = entry && entry.att.length ? `<p class="stat" style="margin:6px 0 0;font-size:12px">If this card leaves play, its attached cards go to the discard pile.</p>` : "";
+  $("#am .box").innerHTML = `<img src="${esc(img(c))}" alt="${esc(c.name)}"><h2>${esc(c.name)}</h2>${attl}
+    <div class="row">${opts.map(([k,l]) => `<button data-do="${k}" class="${k === "play" || k === "activate" ? "go" : ""}">${l}</button>`).join("")}${act.zone === "att" ? `<button data-do="back">Back</button>` : ""}<button data-do="close">Cancel</button></div>${note2}`;
+  $("#am").classList.add("on");
+}
+function closeAct(){ act = null; $("#am").classList.remove("on"); }
+function doAct(k){
+  if (k === "close") return closeAct();
+  if (k === "back"){ act = { zone: "inplay", i: act.p }; return openAct(); }
+  const z = act.zone;
+  if (z === "att"){
+    const p = play.inplay[act.p];
+    if (!p) return closeAct();
+    sendTo(p.att.splice(act.i, 1)[0], k);
+    closeAct(); renderPlay(); return;
+  }
+  const list = z === "discard" ? play.discard[act.g] : play.hand;
+  if (z === "inplay"){
+    const e = play.inplay.splice(act.i, 1)[0];
+    sendTo(e.id, k);
+    e.att.forEach(a => play.discard[gOf(a)].push(a));
+    closeAct(); renderPlay(); return;
+  }
+  const id = list[act.i];
+  if (k === "activate"){
+    if (play.cast){ note("Wait for the current card to finish."); closeAct(); return; }
+    list.splice(act.i, 1);
+    closeAct(); startCast(id); renderPlay(); return;
+  }
+  if (k === "play"){
+    if (isAttach(id)){
+      if (!hasChar()){
+        play.shake = { zone: z, i: act.i, g: act.g };
+        note("Play a character card first, then you can attach this card to it.");
+        closeAct(); renderPlay(); return;
+      }
+      if (!play.inplay.some(e => gOf(e.id) === "character" && e.att.length < MAX_ATT)){
+        play.shake = { zone: z, i: act.i, g: act.g };
+        note(`Every character in play already has ${MAX_ATT} attachments.`);
+        closeAct(); renderPlay(); return;
+      }
+      play.pick = { zone: z, i: act.i, g: act.g };
+      closeAct(); viewD = null; renderPlay(); return;
+    }
+    if (gOf(id) === "character"){
+      const star3 = byId[id].tier === 3;
+      if (fieldCount(star3) >= (star3 ? MAX_STAR3 : MAX_NORMAL)){
+        play.shake = { zone: z, i: act.i, g: act.g };
+        note(star3 ? "Only one 3-star character can be in play at a time." : `Only ${MAX_NORMAL} normal (1-star or 2-star) characters can be in play at once.`);
+        closeAct(); renderPlay(); return;
+      }
+    }
+    list.splice(act.i, 1);
+    play.inplay.push({ id, att: [] });
+  } else {
+    list.splice(act.i, 1);
+    sendTo(id, k);
+  }
+  closeAct(); renderPlay();
+}
+function finishPick(si){
+  const pk = play.pick, e = play.inplay[si];
+  const list = pk.zone === "discard" ? play.discard[pk.g] : play.hand;
+  if (e && gOf(e.id) === "character" && e.att.length >= MAX_ATT){ note(`That character already has ${MAX_ATT} attachments. Choose another one.`); return; }
+  play.pick = null;
+  if (e && gOf(e.id) === "character" && list[pk.i]) e.att.push(list.splice(pk.i, 1)[0]);
+  renderPlay();
+}
+function openCard(e){
+  if (!play) return;
+  const c = e.target.closest(".c[data-zone]");
+  if (!c) return;
+  const zone = c.dataset.zone, i = +c.dataset.i;
+  act = { zone, i, g: zone === "discard" ? c.dataset.g : null };
+  openAct();
+}
+
+function renderAll(){ renderDeckSelect(); renderChips(); renderStars(); renderBuild(); renderPlay(); }
+
+function show(tab){
+  $("#build").classList.toggle("hide", tab!=="build");
+  $("#play").classList.toggle("hide", tab!=="play");
+  $("#tb").classList.toggle("on", tab==="build");
+  $("#tp").classList.toggle("on", tab==="play");
+  if (tab==="play" && (!play || play.deckName !== cur || play.sig !== JSON.stringify(deck()))) newGame();
+}
+
+/* ---------- events ---------- */
+$("#tb").onclick = () => show("build");
+$("#tp").onclick = () => show("play");
+$("#decksel").onchange = e => { cur = e.target.value; save(); play = null; renderAll(); if (!$("#play").classList.contains("hide")) newGame(); };
+$("#q").oninput = e => { query = e.target.value.toLowerCase(); renderBuild(); };
+$("#stars").onclick = e => { const v = e.target.dataset.s; if (v !== undefined){ starFilter = +v; renderStars(); renderBuild(); } };
+$("#chips").onclick = e => { const f = e.target.dataset.f; if (f){ filter = f; renderChips(); renderBuild(); } };
+$("#grid").onclick = e => {
+  const b = e.target.closest("button[data-id]");
+  if (b) bump(b.dataset.id, +b.dataset.d);
+};
+$("#clear").onclick = () => { if (confirm(`Remove every card from "${cur}"?`)){ decks[cur] = {}; save(); renderBuild(); } };
+
+$("#new").onclick = () => {
+  const n = (prompt("Name for the new deck:") || "").trim();
+  if (!n) return;
+  if (decks[n]) return alert("A deck with that name already exists.");
+  decks[n] = {}; cur = n; play = null; save(); renderAll();
+};
+$("#ren").onclick = () => {
+  const n = (prompt("New name for this deck:", cur) || "").trim();
+  if (!n || n === cur) return;
+  if (decks[n]) return alert("A deck with that name already exists.");
+  decks[n] = decks[cur]; delete decks[cur]; cur = n; play = null; save(); renderAll();
+};
+$("#del").onclick = () => {
+  if (Object.keys(decks).length === 1) return alert("You need at least one deck.");
+  if (!confirm(`Delete "${cur}"?`)) return;
+  delete decks[cur]; cur = Object.keys(decks)[0]; play = null; save(); renderAll();
+};
+$("#exp").onclick = () => {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify({ name: cur, cards: deck() }, null, 2)], { type: "application/json" }));
+  a.download = cur.replace(/[^\w-]+/g, "_") + ".deck.json";
+  a.click();
+};
+$("#imp").onclick = () => $("#impfile").click();
+$("#impfile").onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  readFile(f, d => {
+    if (!d || !d.name || typeof d.cards !== "object") return alert("That doesn't look like an exported deck.");
+    let n = d.name, k = 2;
+    while (decks[n]) n = d.name + " " + k++;
+    decks[n] = sanitize(d.cards); cur = n; play = null; save(); renderAll();
+  });
+  e.target.value = "";
+};
+$("#upd").onclick = () => $("#cardfile").click();
+$("#cardfile").onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  readFile(f, d => Array.isArray(d) ? setCards(d, true, "file") : alert("cards.json should be a list of cards."));
+  e.target.value = "";
+};
+
+$("#reset").onclick = newGame;
+$("#play").onclick = e => {
+  if (e.target.id === "gb") return show("build");
+  if (!play) return;
+  const t = e.target.closest("button[data-t]");
+  if (t){ play[t.dataset.t] = Math.max(0, (play[t.dataset.t] || 0) + +t.dataset.d); renderPlay(); return; }
+  if (play.pick){
+    if (e.target.closest("[data-pickcancel]")){ play.pick = null; renderPlay(); return; }
+    const sl = e.target.closest(".slot[data-char]");
+    if (sl) finishPick(+sl.dataset.si);
+    return;
+  }
+  const slot = e.target.closest(".slot");
+  if (slot && !e.target.closest(".pop")){
+    const m = slot.querySelector(".c.main");
+    if (m){ act = { zone: "inplay", i: +m.dataset.i, g: null }; openAct(); }
+    return;
+  }
+  const d = e.target.closest("button[data-draw]");
+  if (d){
+    const g = d.dataset.draw, pile = play.pile[g];
+    const n = Math.max(1, parseInt($("#n").value) || 1);
+    let got = 0;
+    while (got < n && pile.length){ play.hand.push(pile.pop()); got++; }
+    if (got) play.fresh = { from: play.hand.length - got };
+    $("#msg").textContent = got < n ? `The ${gl(g).toLowerCase()} deck is empty. Open its discard pile to shuffle it back in.` : "";
+    renderPlay(); return;
+  }
+  const sh = e.target.closest("button[data-shuf]");
+  if (sh){ shuffle(play.pile[sh.dataset.shuf]); $("#msg").textContent = ""; renderPlay(); return; }
+  const v = e.target.closest("button[data-view]");
+  if (v){ viewD = v.dataset.view; renderDiscard(); return; }
+  openCard(e);
+};
+$("#dv").onclick = e => {
+  if (e.target.id === "dv" || e.target.closest("[data-dclose]")){ viewD = null; renderDiscard(); return; }
+  const sh = e.target.closest("[data-dshuf]");
+  if (sh && play){
+    const g = sh.dataset.dshuf;
+    play.pile[g] = shuffle(play.pile[g].concat(play.discard[g])); play.discard[g] = [];
+    $("#msg").textContent = ""; renderPlay(); return;
+  }
+  openCard(e);
+};
+$("#cast").onclick = () => finishCast();
+$("#am").onclick = e => {
+  if (e.target.id === "am") return closeAct();
+  const a = e.target.closest("[data-att]");
+  if (a && act && act.zone === "inplay"){ act = { zone: "att", p: act.i, i: +a.dataset.att }; return openAct(); }
+  const b = e.target.closest("[data-do]");
+  if (b && act) doAct(b.dataset.do);
+};
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape"){
+    if ($("#cast").classList.contains("on")) finishCast();
+    else if ($("#am").classList.contains("on")) closeAct();
+    else if (play && play.pick){ play.pick = null; renderPlay(); }
+    else if (viewD){ viewD = null; renderDiscard(); }
+  }
+  const c = e.target.closest && e.target.closest(".c.click");
+  if (c && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); openCard(e); }
+});
+
+document.addEventListener("click", e => {
+  const z = e.target.dataset && e.target.dataset.zoom;
+  if (z){ $("#lb img").src = z; $("#lb").classList.add("on"); }
+});
+$("#lb").onclick = () => $("#lb").classList.remove("on");
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if ($("#lb").classList.contains("on")) $("#lb").classList.remove("on");
+  else if (play && play.view){ play.view = null; renderModal(); }
+});
+
+loadCards();
+</script>
+</body>
+</html>
