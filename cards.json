@@ -329,7 +329,7 @@
     "innate_enchantment": null,
     "innate_condition": null,
     "blood_cost": 6,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-devil",
@@ -344,7 +344,7 @@
     "innate_enchantment": "Terror",
     "innate_condition": null,
     "blood_cost": 5,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-dog",
@@ -435,7 +435,7 @@
     "innate_enchantment": "Defender",
     "innate_condition": null,
     "blood_cost": 4,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-gangsta",
@@ -491,7 +491,7 @@
     "attack": 1,
     "health": 3,
     "red_points": 1,
-    "green_points": 3,
+    "green_points": 2,
     "innate_enchantment": null,
     "innate_condition": "Compromised",
     "blood_cost": 3,
@@ -555,7 +555,7 @@
     "innate_enchantment": null,
     "innate_condition": "Overdose",
     "blood_cost": 6,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-hungolongie",
@@ -709,7 +709,7 @@
     "innate_enchantment": null,
     "innate_condition": "Overdose",
     "blood_cost": 4,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-rat-king",
@@ -887,7 +887,7 @@
     "art": "art/Prescription_Card_-_The_Guy.png",
     "attack": 3,
     "health": 6,
-    "red_points": 4,
+    "red_points": 2,
     "green_points": 0,
     "innate_enchantment": "Terror",
     "innate_condition": null,
@@ -938,7 +938,7 @@
     "innate_enchantment": null,
     "innate_condition": null,
     "blood_cost": 5,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-zomboo",
