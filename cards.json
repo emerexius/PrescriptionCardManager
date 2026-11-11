@@ -885,14 +885,14 @@
     "type": "character",
     "tier": 3,
     "art": "art/Prescription_Card_-_The_Guy.png",
-    "attack": 2,
-    "health": 2,
-    "red_points": 0,
+    "attack": 3,
+    "health": 6,
+    "red_points": 4,
     "green_points": 0,
-    "innate_enchantment": "Toxic",
+    "innate_enchantment": "Terror",
     "innate_condition": null,
-    "blood_cost": 2,
-    "dry_blood_cost": 0
+    "blood_cost": 4,
+    "dry_blood_cost": 1
   },
   {
     "id": "character-tiger",
