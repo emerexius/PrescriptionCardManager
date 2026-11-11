@@ -874,7 +874,7 @@
     "health": 2,
     "red_points": 0,
     "green_points": 0,
-    "innate_enchantment": "Flight",
+    "innate_enchantment": "Toxic",
     "innate_condition": null,
     "blood_cost": 1,
     "dry_blood_cost": 0
