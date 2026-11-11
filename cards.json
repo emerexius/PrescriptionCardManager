@@ -872,7 +872,7 @@
     "art": "art/Prescription_Card_-_The_Green.png",
     "attack": 2,
     "health": 2,
-    "red_points": 1,
+    "red_points": 0,
     "green_points": 0,
     "innate_enchantment": "Flight",
     "innate_condition": null,
