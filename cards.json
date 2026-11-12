@@ -1480,7 +1480,7 @@
     "name": "Backtrack",
     "type": "envision",
     "art": "art/v_Backtrack.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1488,7 +1488,7 @@
     "name": "Control",
     "type": "envision",
     "art": "art/v_Control.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1496,7 +1496,7 @@
     "name": "Decide",
     "type": "envision",
     "art": "art/v_Decide.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1504,7 +1504,7 @@
     "name": "Double",
     "type": "envision",
     "art": "art/v_Double.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1512,7 +1512,7 @@
     "name": "Peer",
     "type": "envision",
     "art": "art/v_Peer.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1520,7 +1520,7 @@
     "name": "Persuade",
     "type": "envision",
     "art": "art/v_Persuade.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1528,7 +1528,7 @@
     "name": "Plague",
     "type": "envision",
     "art": "art/v_Plague.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1544,7 +1544,7 @@
     "name": "Reset",
     "type": "envision",
     "art": "art/v_Reset.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1553,14 +1553,14 @@
     "type": "envision",
     "art": "art/v_Retaliate.png",
     "blood_cost": 0,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "infliction-cleanse",
     "name": "Cleanse",
     "type": "infliction",
     "art": "art/i_Cleanse.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1568,7 +1568,7 @@
     "name": "Clone",
     "type": "infliction",
     "art": "art/i_Clone.png",
-    "blood_cost": 0,
+    "blood_cost": 3,
     "dry_blood_cost": 0
   },
   {
@@ -1576,7 +1576,7 @@
     "name": "Contaminate",
     "type": "infliction",
     "art": "art/i_Contaminate.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1584,7 +1584,7 @@
     "name": "Enfeeble",
     "type": "infliction",
     "art": "art/i_Enfeeble.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1592,7 +1592,7 @@
     "name": "Hinder",
     "type": "infliction",
     "art": "art/i_Hinder.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1600,7 +1600,7 @@
     "name": "Hypnotize",
     "type": "infliction",
     "art": "art/i_Hypnotize.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1608,7 +1608,7 @@
     "name": "Infest",
     "type": "infliction",
     "art": "art/i_Infest.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1616,7 +1616,7 @@
     "name": "Learn",
     "type": "infliction",
     "art": "art/i_Learn.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   },
   {
@@ -1624,7 +1624,7 @@
     "name": "Reduce",
     "type": "infliction",
     "art": "art/i_Reduce.png",
-    "blood_cost": 0,
+    "blood_cost": 1,
     "dry_blood_cost": 0
   },
   {
@@ -1632,7 +1632,7 @@
     "name": "Swap",
     "type": "infliction",
     "art": "art/i_Swap.png",
-    "blood_cost": 0,
+    "blood_cost": 2,
     "dry_blood_cost": 0
   }
 ]
