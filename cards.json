@@ -973,7 +973,7 @@
   {
     "id": "token-zombie-squirrel",
     "name": "Zombie Squirrel",
-    "art": "art/Zombie_squirrel.png",
+    "art": "art/Zombie_Squirrel.png",
     "pack": true,
     "innate_enchantment": null,
     "innate_condition": null,
