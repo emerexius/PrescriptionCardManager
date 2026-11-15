@@ -664,6 +664,21 @@
     "dry_blood_cost": 0
   },
   {
+    "id": "character-mantis",
+    "name": "Mantis",
+    "type": "character",
+    "tier": 2,
+    "art": "art/Prescription_Card_-_Mantis.png",
+    "attack": 5,
+    "health": 2,
+    "red_points": 1,
+    "green_points": 1,
+    "innate_enchantment": null,
+    "innate_condition": null,
+    "blood_cost": 4,
+    "dry_blood_cost": 0
+  },
+  {
     "id": "character-neighbor",
     "name": "Neighbor",
     "type": "character",
