@@ -359,7 +359,7 @@
     "innate_enchantment": null,
     "innate_condition": null,
     "blood_cost": 6,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-devil",
@@ -374,7 +374,7 @@
     "innate_enchantment": "Terror",
     "innate_condition": null,
     "blood_cost": 5,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-dog",
@@ -600,7 +600,7 @@
     "innate_enchantment": null,
     "innate_condition": "Overdose",
     "blood_cost": 6,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-hungolongie",
@@ -784,7 +784,7 @@
     "innate_enchantment": null,
     "innate_condition": "Overdose",
     "blood_cost": 4,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-rat-king",
@@ -1013,7 +1013,7 @@
     "innate_enchantment": null,
     "innate_condition": null,
     "blood_cost": 5,
-    "dry_blood_cost": 0
+    "dry_blood_cost": 1
   },
   {
     "id": "character-zomboo",
